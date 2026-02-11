@@ -84,10 +84,7 @@ pmc_srmr.mixture_list <- function(x, ..., reps = 100, ci = .95){
           simplify = FALSE,
           expr = {
             pgs(sprintf(progmsg))
-            sims <- OpenMx::mxGenerateData(x[[i]])
-            if(any(not_num)){
-              sims[which(not_num)] <- lapply(sims[which(not_num)], as.numeric)
-            }
+            sims <- data.matrix(OpenMx::mxGenerateData(x[[i]]))
             cor_sim <- cor(sims)
             sqrt(mean((cor_sim[select_these] - cor_obs_sel)^2))
           }
